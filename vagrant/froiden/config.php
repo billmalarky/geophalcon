@@ -5,11 +5,11 @@
 #------------------Changes to be done here-----------------------------
 	
 	$host='localhost'; #hostname
-	$user='root';          #user
-	$password='';      #password
-	$database='gabned';      #database name
+	$user='geophalcon';          #user
+	$password='geophalcon';      #password
+	$database='geophalcon';      #database name
 	#path of the download folder which is in the geonames folder..Dont forget to end with /
-	$path='/Install Directory/xampp/htdocs/geonames/download/';
+	$path= getcwd() . '/geonames/download/';
 	
 #*****************************************************************************	
 	

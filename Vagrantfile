@@ -15,9 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.100.100"
   #config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  # SUBDOMAINS
-  # config.hostsupdater.aliases = ["www.geophalcon.local"]
-
   # VM CONFIGURATION - DO NOT EDIT - Defines the attributes of the VM
   config.vm.box = "chef/fedora-19"
   
