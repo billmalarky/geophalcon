@@ -39,7 +39,7 @@ php $VAGRANT_DATA_DIR/mysql/install.php
 # Setting up Xdebug
 yum install -y php-devel
 yum install -y php-pear
-yum install -y gcc gcc-c++ autoconf automake
+yum install -y gcc gcc-c++ autoconf automake make
 pecl install Xdebug
 
 # Install xdebug.ini file.
@@ -67,8 +67,13 @@ cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
 rm -f /etc/httpd/conf/httpd.conf
 ln -s $VAGRANT_DATA_DIR/apache/httpd.conf /etc/httpd/conf/httpd.conf
 
-echo "Downloading GeoNames data and importing into MySql"
-# Run GeoNames import script
+
+# Install Phalcon
+git clone git://github.com/phalcon/cphalcon.git
+rm -rf /vagrant/phalcon/cphalcon/.git
+cd /vagrant/phalcon/cphalcon/build
+./install
+ln -s $VAGRANT_DATA_DIR/php/phalcon.ini /etc/php.d/phalcon.ini
 
 # Restart services
 service httpd restart
@@ -78,3 +83,5 @@ service mysqld restart
 systemctl stop firewalld.service
 
 echo "Server provisioning complete!"
+
+echo "Import geonames data into mysql via \"mysql -u root -p geoname < /vagrant/geoname-import/geophalcon-db.sql\""

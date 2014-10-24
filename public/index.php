@@ -1,3 +1,5 @@
 <?php
 
-echo 'Home';
+//echo 'Home';
+
+phpinfo();
