@@ -1,8 +1,8 @@
 ## GeoPhalcon
 
-### GeoPhalcon is a lightning fast basic GeoNames search API.
+### GeoPhalcon is a fast basic GeoNames search API built with the Phalcon PHP framework.
 
-GeoPhalcon allows you to quickly integrate GeoNames lookups into your web app. It imports the GeoNames data into MySql using Ajay Froiden's import script, then sets up basic API routing to allow you to query the geonames data rapidly using Phalcon (the fastest PHP framework my a wide margin).
+GeoPhalcon allows you to quickly integrate GeoNames lookups into your web app. It imports the GeoNames data into MySql using the [CodigoFuerte import script](https://github.com/codigofuerte/GeoNames-MySQL-DataImport), then sets up basic API routing to allow you to query the geonames data rapidly using Phalcon PHP.
 
 ### License
 

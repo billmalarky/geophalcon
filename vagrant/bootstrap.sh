@@ -13,7 +13,7 @@ DB_NAME="nursearmy" #name of mysql DB.
 # Install Applications
 yum install -y git
 yum install -y vim
-
+yum install -y unzip.x86_64
 
 
 # Install LAMP stack
@@ -28,8 +28,6 @@ yum install -y mysql mysql-server
 service mysqld start
 chkconfig mysqld on
 
-#run secure install script
-#/usr/bin/mysql_secure_installation
 
 # PHP
 yum install -y php php-mysql php-pdo
@@ -47,11 +45,6 @@ pecl install Xdebug
 # Install xdebug.ini file.
 ln -s $VAGRANT_DATA_DIR/php/xdebug.ini /etc/php.d/xdebug.ini
 
-# Install configured httpd.conf
-cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
-rm -f /etc/httpd/conf/httpd.conf
-ln -s $VAGRANT_DATA_DIR/apache/httpd.conf /etc/httpd/conf/httpd.conf
-
 # Install configured php.ini
 cp /etc/php.ini /etc/php.ini.orig
 rm -f /etc/php.ini
@@ -65,11 +58,23 @@ mv composer.phar /usr/local/bin/composer
 rm -rf /var/www/html #delete html folder so the symlink will recreate it correctly (folder recreated as link).
 ln -s /vagrant $SITE_DIR
 
-echo "Updating session folder permissions"
+#echo "Updating session folder permissions"
 chown -R vagrant:vagrant /var/lib/php/session
 
-echo "Downloading GeoNames data and importing into MySql 
+
+# Install configured httpd.conf
+cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
+rm -f /etc/httpd/conf/httpd.conf
+ln -s $VAGRANT_DATA_DIR/apache/httpd.conf /etc/httpd/conf/httpd.conf
+
+echo "Downloading GeoNames data and importing into MySql"
 # Run GeoNames import script
 
+# Restart services
+service httpd restart
+service mysqld restart
+
+# Disabling the development firewall
+systemctl stop firewalld.service
 
 echo "Server provisioning complete!"

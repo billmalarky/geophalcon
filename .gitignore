@@ -1,3 +1,4 @@
 /.vagrant
 /nbproject/
 /vagrant/froiden/geonames/download/*
+/geoname-import/geoname-db.sql
