@@ -23,6 +23,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"] #this may help speed up guest machine downloads.
   end
 
+  #config.vm.synced_folder "src/", "/srv/website", disabled: true
+  #config.vm.synced_folder ".", "/vagrant", type: "rsync"
 
   # Run the auto-setup script
   config.vm.provision :shell, :path => "vagrant/bootstrap.sh"

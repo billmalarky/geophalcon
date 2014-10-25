@@ -8,7 +8,7 @@
 SITE_DIR="/var/www/html" # The path to the web application on the server (default: /var/www/html)
 SITE_PUB_DIR="/var/www/html/geophalcon.local/public" # The path to the application public web folder.
 VAGRANT_DATA_DIR="/vagrant/vagrant"
-DB_NAME="nursearmy" #name of mysql DB.
+DB_NAME="geoname" #name of mysql DB.
 
 # Install Applications
 yum install -y git
@@ -27,13 +27,13 @@ chkconfig httpd on
 yum install -y mysql mysql-server
 service mysqld start
 chkconfig mysqld on
-
+mysqladmin -u root password root # set mysql root password to root
 
 # PHP
 yum install -y php php-mysql php-pdo
 
-# Create GeoPhalcon MySql user and database via install script
-php $VAGRANT_DATA_DIR/mysql/install.php
+# Create GeoPhalcon MySql user and database via install script (deprecated, now we create db named "geoname")
+# php $VAGRANT_DATA_DIR/mysql/install.php
 
 
 # Setting up Xdebug
@@ -66,14 +66,22 @@ chown -R vagrant:vagrant /var/lib/php/session
 cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
 rm -f /etc/httpd/conf/httpd.conf
 ln -s $VAGRANT_DATA_DIR/apache/httpd.conf /etc/httpd/conf/httpd.conf
-
+ln -s $VAGRANT_DATA_DIR/apache/mod_rewrite_rules.conf /etc/httpd/conf.d/mod_rewrite_rules.conf
 
 # Install Phalcon
+mkdir -p /vagrant/phalcon
+cd /vagrant/phalcon
 git clone git://github.com/phalcon/cphalcon.git
 rm -rf /vagrant/phalcon/cphalcon/.git
 cd /vagrant/phalcon/cphalcon/build
 ./install
 ln -s $VAGRANT_DATA_DIR/php/phalcon.ini /etc/php.d/phalcon.ini
+
+# Download geonames data and import into mysql
+cd /vagrant/geoname-import/
+sh geonames_importer.sh -a download-data
+sh geonames_importer.sh -a create-db -u root -p root
+sh geonames_importer.sh -a import-dumps -u root -p root
 
 # Restart services
 service httpd restart
@@ -84,4 +92,4 @@ systemctl stop firewalld.service
 
 echo "Server provisioning complete!"
 
-echo "Import geonames data into mysql via \"mysql -u root -p geoname < /vagrant/geoname-import/geophalcon-db.sql\""
+echo "Import geonames data into mysql via \"mysql -u root -p geoname < /vagrant/geoname-import/true-geoname-db.sql\""
