@@ -8,7 +8,7 @@ class IndexController extends \Phalcon\Mvc\Controller {
         echo '<p>Add API routes to the ApiController</p>';
         echo '<p><a href="http://geophalcon.local/api/primary/4526992/">Primary lookup request</a></p>';
         echo '<p><a href="http://geophalcon.local/api/geoname/US/OH/upper+arlington">Search request</a></p>';
-        echo '<p>For benchmarking information visit <a href="http://reidmayo.com">Reidmayo.com</a>.</p>';
+        echo '<p>For benchmarking information visit <a href="http://reidmayo.com/2014/10/25/benchmarking-phalcon-php-vs-slim-framework-with-opcache-vs-node-js/">Reidmayo.com</a>.</p>';
     }
     
 }

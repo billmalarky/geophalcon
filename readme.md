@@ -4,6 +4,9 @@
 
 GeoPhalcon allows you to quickly integrate GeoNames lookups into your web app. It imports the GeoNames data into MySql using the [CodigoFuerte import script](https://github.com/codigofuerte/GeoNames-MySQL-DataImport), then sets up basic API routing to allow you to query the geonames data rapidly using Phalcon PHP.
 
+This was benchmarked against the Slim framework with OpCache and Node.js. The results can be found here.
+http://reidmayo.com/2014/10/25/benchmarking-phalcon-php-vs-slim-framework-with-opcache-vs-node-js/
+
 ### Setup
 
 Install Virtualbox and Vagrant. Navigate to the GeoPhalcon directory and run "Vagrant Up"
